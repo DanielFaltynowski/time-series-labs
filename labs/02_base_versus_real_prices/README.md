@@ -30,22 +30,22 @@ $$
 
 In my analysis, I calculated chain indices for both quarterly and annual periods:
 
-- $\text{QCI}_t$: chain index for quarterly prices, where $t\in \{1995_{Q1}, 1995_{Q2}, 1995_{Q3}, 1995_{Q4}, 1996_{Q1}, ...\}$,
+- $\text{QCI}_t$: chain index for quarterly prices, where $t\in \{1995_{1}, 1995_{2}, 1995_{3}, 1995_{4}, 1996_{1}, ...\}$,
 - $\text{ACI}_t$: chain index for annual prices, where $t\in \{1995, 1996, ...\}$.
 
 Let us denote the constant prices of gross value added as $\text{RGVA}(t_c,t_r)$, where $t_c$ denotes the reference year, and $t_r$ the year relative to which we examine constant prices.
 
-By performing a simple check, we quickly notice that $\sum_{i=1}^{4}{\text{GVA}(2020)_{2024_{Qi}}} \neq \text{RGVA}(2020, 2024)_{2024}$. This is the result of, among other things, the impact of inflation. Since the quarterly data are relative to the year 2020, the constant prices for 2024 will be higher, which is exactly what happened in this case:
-- $\sum_{i=1}^{4}{\text{GVA}(2020)_{2024_{Qi}}} = \text{2,424,088.00 PLN}$,
+By performing a simple check, we quickly notice that $\sum_{i=1}^{4}{\text{GVA}(2020)_{2024_{i}}} \neq \text{RGVA}(2020, 2024)_{2024}$. This is the result of, among other things, the impact of inflation. Since the quarterly data are relative to the year 2020, the constant prices for 2024 will be higher, which is exactly what happened in this case:
+- $\sum_{i=1}^{4}{\text{GVA}(2020)_{2024_{i}}} = \text{2,424,088.00 PLN}$,
 - $\text{RGVA}(2020, 2024)_{2024} = \text{3,249,214.00 PLN}$.
 
 The next step was to calculate the series prices relative to the year 2024. These data are easily available, also on the Eurostat website, but they can be calculated very simply using the existing dataset.
 
-1. Set any default value for $\text{RGVA}(2020, 2024)_{2024_{Q1}}$, for example, let it be \text{500,000 PLN}$.
+1. Set any default value for $\text{RGVA}(2020, 2024)_{2024_{1}}$, for example, let it be \text{500,000 PLN}$.
 2. For all other quarters, calculate $\text{RGVA}(2020, 2024)_{t}$ using the following formula:
-   - For $t > 2024_{Q1}$, $\text{RGVA}(2020, 2024)_{t} = \text{RGVA}(2020, 2024)_{t-1} \times \text{CI}_{t}$, 
-   - For $t < 2024_{Q1}$, $\text{RGVA}(2020, 2024)_{t} = \frac{\text{RGVA}(2020, 2024)_{t+1}}{\text{CI}_{t+1}}$
-3. Using built-in tools (for example, `Solver` in Excel), calculate the correct value of $\text{RGVA}(2020, 2024)_{2024_{Q1}}$.
+   - For $t > 2024_{1}$, $\text{RGVA}(2020, 2024)_{t} = \text{RGVA}(2020, 2024)_{t-1} \times \text{CI}_{t}$, 
+   - For $t < 2024_{1}$, $\text{RGVA}(2020, 2024)_{t} = \frac{\text{RGVA}(2020, 2024)_{t+1}}{\text{CI}_{t+1}}$
+3. Using built-in tools (for example, `Solver` in Excel), calculate the correct value of $\text{RGVA}(2020, 2024)_{2024_{1}}$.
 
 ![Solver](screenshots/solver.png)
 
