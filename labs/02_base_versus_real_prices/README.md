@@ -1,6 +1,6 @@
 # Laboratory 02: Analysis of Base-Year and Constant-Price Valuations
 
-Retrieve data on Gross Value Added for 2020 (GVA2020) for Poland from [Eurostat](https://ec.europa.eu/eurostat)including quarterly data for gross value added at 2020 prices and annual data at current (nominal) prices.
+Retrieve data on Gross Value Added for 2020 (GVA2020) for Poland from [Eurostat](https://ec.europa.eu/eurostat) including quarterly data for gross value added at 2020 prices and annual data at current (nominal) prices.
 
 From the available datasets, extract information for Poland and save it in CSV format for further analysis. Next, determine how the value of GVA changes over time by calculating chain-linked indices for both quarterly and annual data. Based on these indices, derive constant-price valuations of GVA relative to the base years 2024 and 2015.
 
