@@ -1,47 +1,24 @@
----
-title: "R Notebook"
-output: md_document
----
-
 # Load the dplyr library for data manipulation
-This step loads the `dplyr` package, which will be used for data manipulation tasks such as filtering and mutating columns.
-```{r}
+# install.packages("dplyr")
 library(dplyr)
-```
 
 # Read the GVA dataset from CSV
-Here we import the quarterly GVA data from a CSV file.
-```{r}
 data <- read.csv(file = 'data/processed_gva.csv', sep = ';')
-```
 
 # Convert columns to numeric
-We ensure the `Year` and `GVA` columns are numeric for calculations.
-```{r}
 data$YEAR <- as.numeric(data$YEAR)
 data$GVA <- as.numeric(data$GVA)
-```
 
 # Inspect the dataset
-Check the data after importing to confirm values.
-```{r}
 data
-```
 
 # Initialize column for GVA with trend removed
-Create a new column that will hold the detrended GVA values.
-```{r}
 data <- dplyr::mutate(data, GVA_no_trend = NA)
-```
 
 # View updated dataset
-```{r}
 data
-```
 
 # Remove trend using first differences
-We subtract each GVA value from the previous one to remove the trend component.
-```{r}
 for (i in 1:length(data$GVA_no_trend)) {
   if (i == 1) {
     data$GVA_no_trend[i] <- NA
@@ -49,16 +26,11 @@ for (i in 1:length(data$GVA_no_trend)) {
     data$GVA_no_trend[i] <- data$GVA[i] - data$GVA[i - 1]
   }
 }
-```
 
 # Inspect data after detrending
-```{r}
 data
-```
 
 # Calculate raw quarterly indicators for seasonality
-Compute the mean of the detrended values for each quarter to estimate seasonal effects.
-```{r}
 raw_indicator_q1 <- mean(dplyr::filter(data, QUARTER == 1)$GVA_no_trend, na.rm = TRUE)
 raw_indicator_q2 <- mean(dplyr::filter(data, QUARTER == 2)$GVA_no_trend, na.rm = TRUE)
 raw_indicator_q3 <- mean(dplyr::filter(data, QUARTER == 3)$GVA_no_trend, na.rm = TRUE)
@@ -68,18 +40,13 @@ raw_indicator_q1
 raw_indicator_q2
 raw_indicator_q3
 raw_indicator_q4
-```
 
 # Calculate overall average of raw indicators
-```{r}
 average_raw_indicator <- mean(c(raw_indicator_q1, raw_indicator_q2, raw_indicator_q3, raw_indicator_q4))
 
 average_raw_indicator
-```
 
 # Compute cleaned quarterly indicators
-Subtract the overall mean to remove seasonal bias.
-```{r}
 cleaned_indicator_q1 <- raw_indicator_q1 - average_raw_indicator
 cleaned_indicator_q2 <- raw_indicator_q2 - average_raw_indicator
 cleaned_indicator_q3 <- raw_indicator_q3 - average_raw_indicator
@@ -89,20 +56,14 @@ cleaned_indicator_q1
 cleaned_indicator_q2
 cleaned_indicator_q3
 cleaned_indicator_q4
-```
 
 # Initialize column for GVA with trend and seasonality removed
-```{r}
 data <- dplyr::mutate(data, GVA_no_trend_seasonality = NA)
-```
 
 # Inspect dataset
-```{r}
 data
-```
 
 # Remove seasonality by subtracting cleaned quarterly indicators
-```{r}
 for (i in 1:length(data$GVA_no_trend_seasonality)) {
   if (data$QUARTER[i] == 1) {
     data$GVA_no_trend_seasonality[i] <- data$GVA_no_trend[i] - cleaned_indicator_q1
@@ -114,21 +75,14 @@ for (i in 1:length(data$GVA_no_trend_seasonality)) {
     data$GVA_no_trend_seasonality[i] <- data$GVA_no_trend[i] - cleaned_indicator_q4
   }
 }
-```
 
 # View data after removing trend and seasonality
-```{r}
 data
-```
 
 # Filter dataset to include only observations from 2017 onwards
-```{r}
 data <- dplyr::filter(data, data$YEAR >= 2017)
-```
 
 # Plot GVA at different stages of data cleaning
-Prepare a combined line plot showing raw, detrended, and seasonally adjusted series.
-```{r}
 y_min <- min(data$GVA, data$GVA_no_trend, data$GVA_no_trend_seasonality, na.rm = TRUE)
 y_max <- max(data$GVA, data$GVA_no_trend, data$GVA_no_trend_seasonality, na.rm = TRUE)
 
@@ -149,4 +103,3 @@ plot(1:length(data$GVA), data$GVA_no_trend_seasonality, type = "l", col = "darkg
 legend("topleft", legend = c("GVA (raw)", "GVA (no trend)", "GVA (no trend + seasonality)"), 
        col = c("blue", "darkorange", "darkgreen"), lwd = 2, bty = "n")
 
-```
