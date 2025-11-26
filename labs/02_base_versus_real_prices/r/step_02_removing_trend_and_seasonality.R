@@ -3,7 +3,7 @@
 library(dplyr)
 
 # Read the GVA dataset from CSV
-data <- read.csv(file = 'r/q_gva_2020_2024.csv', sep = ',')
+data <- read.csv(file = 'q_gva_2020_2024.csv', sep = ',')
 
 # Transform current dataset to script from Labs 01
 data$GVA <- data$Q_REAL_GVA_2020_2024
