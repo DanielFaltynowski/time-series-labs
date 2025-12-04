@@ -11,3 +11,15 @@ From the available datasets, extract information for Poland and save it in CSV f
 Estimate the values of GVA for 2024-Q1 and 2015-Q1 using built-in estimation tools in Excel and R, ensuring that the results are consistent with the actual annual data at current prices.
 
 Finally, use the dataset prepared in Laboratory 01 to compare how the shape of the time series has changed after accounting for constant prices. Present the results with clear charts and include a concise summary of the data sources, applied methods, and conclusions.
+
+# Laboratory 03: Fitting Trend to Data
+
+Retrieve data on Gross Value Added for Poland from [Eurostat](https://ec.europa.eu/eurostat) including quarterly data for gross value added prices.
+
+Next, estimate the parameters of three econometric models:
+
+- linear regression,
+- power regression,
+- exponential regression.
+
+For each model, draw a plot showing the fit of the estimated function to the empirical data. Compute the standard errors of the estimated parameters for all three models. Perform the t-Student test to evaluate the statistical significance of the parameters. Compare your results with those obtained using the built-in Excel module: `Data -> Data Analysis -> Regression`. Based on the obtained measures of fit and the statistical correctness of the estimates, select the model that best describes the analyzed data and justify your choice.
